@@ -12,6 +12,7 @@ router.get('/', (req, res) => {
           model: Category,
       }, {
           model: Tag,
+          through: ProductTag,
       }],
   })
   .then(dbProductData => res.json(dbProductData))
@@ -34,7 +35,8 @@ router.get('/:id', (req, res) => {
       attributes: ['id', 'category_name']
   }, {
       model: Tag,
-      attributes: ['id', 'tag_name']
+      attributes: ['id', 'tag_name'],
+      through: ProductTag
   }],
   })
   .then(dbProductData => {
@@ -62,12 +64,7 @@ router.post('/', (req, res) => {
       tagIds: [1, 2, 3, 4]
     }
   */
-  Product.create({
-    product_name: req.body.product_name,
-    price: req.body.price,
-    stock: req.body.stock,
-    tagIds: req.body.tagIds
-  })
+  Product.create(req.body)
     .then((product) => {
       // if there's product tags, we need to create pairings to bulk create in the ProductTag model
       if (req.body.tagIds.length) {
@@ -133,6 +130,7 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   // delete one product by its `id` value
+
 });
 
 module.exports = router;
