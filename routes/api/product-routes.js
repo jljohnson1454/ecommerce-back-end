@@ -8,18 +8,20 @@ router.get('/', (req, res) => {
   // find all products
   // be sure to include its associated Category and Tag data
   Product.findAll({
-        include: [{
-          model: Category,
-      }, {
-          model: Tag,
-          through: ProductTag,
-      }],
+    include: [{
+      model: Category,
+      attributes: ['category_name']
+    }, {
+      model: Tag,
+      attributes: ['tag_name'],
+      through: ProductTag,
+    }],
   })
-  .then(dbProductData => res.json(dbProductData))
-  .catch(err => {
-    console.log(err);
-    res.status(500).json(err);
-  });
+    .then(dbProductData => res.json(dbProductData))
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 // get one product
@@ -32,24 +34,24 @@ router.get('/:id', (req, res) => {
     },
     include: [{
       model: Category,
-      attributes: ['id', 'category_name']
-  }, {
+      attributes: ['category_name']
+    }, {
       model: Tag,
-      attributes: ['id', 'tag_name'],
+      attributes: ['tag_name'],
       through: ProductTag
-  }],
+    }],
   })
-  .then(dbProductData => {
-  if(!dbProductData) {
-    res.status(404).json({ message: 'No product found with this id!' });
-    return;
-  }
-  res.json(dbProductData);
-  })
-  .catch(err => {
-    console.log(err);
-    res.status(500).json(err);
-  })
+    .then(dbProductData => {
+      if (!dbProductData) {
+        res.status(404).json({ message: 'No product found with this id!' });
+        return;
+      }
+      res.json(dbProductData);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    })
 });
 
 
