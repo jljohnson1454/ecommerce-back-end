@@ -4,7 +4,7 @@
 This is the back-end code for an e-commerce applicaton that can be utilized by any retail business. Using Insomnia Core, you can retrieve, create, update, and delete new and existing data without needing a front end. In my walkthrough videos attached, you can see that all the GET, POST, PUT, and DELETE routes working as they should.
 
 ## Installation
-First, install Node.js by typing the following in the root directory of the project:
+First, install Node.js by typing the following in the root directory of the project in the command console or terminal:
   <br>
   <br>
     npm install
@@ -28,10 +28,10 @@ Finally, install Dotenv (https://www.npmjs.com/package/dotenv) by typing:
 npm install dotenv
 <br>
 <br>
-Once the packages have been install, activate MySQL by typing:
+To run the program, please type the following:
 <br>
 <br>
-mysql -u root -p
+npm start
 <br>
 <br>
 
